@@ -1,6 +1,12 @@
 (ns problems.core
   (:gen-class))
 
+(defn get-factors [n l]
+  (filter #(zero? (mod n %)) l))
+
+(defn is-prime? [n]
+  (or (<= n 3) (empty? (get-factors n ))))
+
 (defn problem1 []
   (println " If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.  Find the sum of all the multiples of 3 or 5 below 1000. ")
   (reduce + (filter #(or (zero? (mod % 3)) (zero? (mod % 5))) (range 1 1000))))
@@ -13,6 +19,12 @@
                  (recur (conj x new) (+ (last x) new))
                  x))]
     (reduce + (filter even? nums))))
+
+(defn problem3 []
+  (println " The prime factors of 13195 are 5, 7, 13 and 29.  What is the largest prime factor of the number 600851475143 ?  ")
+  (println "pretty sure this works, but it would take a very long time to run and would probably crash my computer...")
+  (last (filter is-prime? (get-factors 600851475143 (range 2 600851475143)))))
+
 
 (defn -main
   "I don't do a whole lot ... yet."
